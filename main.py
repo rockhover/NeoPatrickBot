@@ -1,17 +1,28 @@
-# coding=utf-8
-# This is a sample Python script.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from itertools import islice
+from fbchat import Client
+from fbchat.models import *
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print("Hi, {0}".format(name))  # Press Ctrl+F8 to toggle the breakpoint.
+email = ""
+password = ""
 
 
-# Press the green button in the gutter to run the script.
+thread_id = "1234567890"
+thread_type = ThreadType.GROUP
+
+def main():
+
+    client = Client(email, password)
+
+    print("Own id: {}".format(client.uid))
+
+    # Print image url for 20 last images from thread.
+    images = client.fetchThreadImages(thread_id)
+    for image in islice(images, 20):
+        print(image.large_preview_url)
+
+
+    client.logout()
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    print("Pingas")
