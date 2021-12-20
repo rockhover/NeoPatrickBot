@@ -5,10 +5,18 @@ from fbchat.models import *
 
 email = ""
 password = ""
+target_id = ""
 
-
-thread_id = "1234567890"
+thread_id = "6566850490051694"
 thread_type = ThreadType.GROUP
+
+def parseLogin():
+    with open("personal_data.txt", "r") as f:
+        login = f.readlines()
+    global email
+    email = login[0].strip()
+    global password
+    password = login[1].strip()
 
 def main():
 
@@ -16,13 +24,10 @@ def main():
 
     print("Own id: {}".format(client.uid))
 
-    # Print image url for 20 last images from thread.
-    images = client.fetchThreadImages(thread_id)
-    for image in islice(images, 20):
-        print(image.large_preview_url)
-
+    client.send(Message(text="Bot: Pingas"), thread_id=thread_id, thread_type=thread_type)
 
     client.logout()
 
 if __name__ == '__main__':
-    print("Pingas")
+    parseLogin()
+    main()
