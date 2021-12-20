@@ -1,18 +1,28 @@
-
-from itertools import islice
-
 import fbchat
 from fbchat import Client
 from fbchat.models import *
+from dotenv import load_dotenv
+from PIL import Image
+import deeppyer
+import asyncio
+import os
 import requests
 import shutil
 
-email = ""
-password = ""
+load_dotenv()
+
+email = os.getenv('EMAIL')
+password = os.getenv('PASSWORD')
 target_id = ""
 
 thread_id = "6566850490051694"
 thread_type = ThreadType.GROUP
+
+async def fry(path):
+    img = Image.open(path)
+    img = await deeppyer.deepfry(img)
+    img.save('stored_images/fry.jpg')
+
 
 class EchoBot(Client):
     def onMessage(self, author_id, message_object, thread_id, thread_type, **kwargs):
@@ -31,25 +41,23 @@ class EchoBot(Client):
                 with open("stored_images/penguin.jpg", 'wb') as f:
                     shutil.copyfileobj(r.raw, f)
 
-                print('Image successfully Downloaded')
+                print('[Image Successfully Downloaded]')
+
+                loop = asyncio.get_event_loop()
+                loop.run_until_complete(fry("stored_images/penguin.jpg"))
+
+                print('[Image Fried]')
+
+                self.sendLocalImage('stored_images/fry.jpg', thread_id=thread_id, thread_type=thread_type)
+                print('[Image Sent]')
             else:
-                print('Image Couldn\'t be retrieved')
+                print('{Image Couldn\'t be retrieved}')
 
-
-def parseLogin():
-    with open("personal_data.txt", "r") as f:
-        login = f.readlines()
-    global email
-    email = login[0].strip()
-    global password
-    password = login[1].strip()
 
 def main():
-
     client = EchoBot(email, password)
     client.listen()
     client.logout()
 
 if __name__ == '__main__':
-    parseLogin()
     main()

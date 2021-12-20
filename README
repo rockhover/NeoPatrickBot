@@ -1,7 +1,7 @@
 Run only on Python 3.8 (probably)
 
 Prerequisites:
-1. Add personal_data.txt and add 2 lines for your email and password
+1. Add .env file and add 2 lines for your email and password
 2. Add stored_images folder
 3. Run main.py and find the error line for revision, change to "revision = 1"
 4. Ignore "Failed parsing MQTT data" and "UnicodeDecodeError" errors
