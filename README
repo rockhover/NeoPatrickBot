@@ -1,0 +1,7 @@
+Prerequisites:
+1. Make file personal_data.txt
+2. Add email and password in 2 lines
+3. Make .gitignore and add personal_data.txt
+
+After revision error when running:
+1. Change revision = ... to revision = 1
