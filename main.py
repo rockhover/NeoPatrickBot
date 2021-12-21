@@ -31,7 +31,7 @@ class EchoBot(Client):
                 with open("stored_images/penguin.jpg", 'wb') as f:
                     shutil.copyfileobj(r.raw, f)
 
-                print('Image successfully Downloaded: Penguin')
+                print('Image successfully Downloaded')
             else:
                 print('Image Couldn\'t be retrieved')
 
