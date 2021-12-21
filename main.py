@@ -28,12 +28,11 @@ class EchoBot(Client):
     def onMessage(self, author_id, message_object, thread_id, thread_type, **kwargs):
         print("pingas")
         atts = message_object.attachments
-        if len(atts) != 0 and isinstance(atts[0], fbchat.ImageAttachment):
-            print("fat penguin")
+        if len(atts) != 0 and isinstance(atts[0], fbchat.ImageAttachment) and author_id != self.uid:
             img_url = self.fetchImageUrl(atts[0].uid)
             r = requests.get(img_url, stream=True)
             # Check if the image was retrieved successfully
-            if r.status_code == 200:
+            if r.status_code == 200 and int(r.headers['Content-Length']) < 100000:
                 # Set decode_content value to True, otherwise the downloaded image file's size will be zero.
                 r.raw.decode_content = True
                 # filename = img_url.split("/")[-1]
