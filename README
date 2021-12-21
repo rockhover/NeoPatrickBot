@@ -1,7 +1,7 @@
-Prerequisites:
-1. Make file personal_data.txt
-2. Add email and password in 2 lines
-3. Make .gitignore and add personal_data.txt
+Run only on Python 3.8 (probably)
 
-After revision error when running:
-1. Change revision = ... to revision = 1
+Prerequisites:
+1. Add personal_data.txt and add 2 lines for your email and password
+2. Add stored_images folder
+3. Run main.py and find the error line for revision, change to "revision = 1"
+4. Ignore "Failed parsing MQTT data" and "UnicodeDecodeError" errors
